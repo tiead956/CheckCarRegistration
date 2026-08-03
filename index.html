@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>โปรแกรมวิเคราะห์ทะเบียนรถมงคล</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Prompt', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+            color: #f8fafc;
+            min-height: 100vh;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+        .gold-gradient {
+            background: linear-gradient(to right, #fbbf24, #d97706, #fbbf24);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% auto;
+            animation: shine 3s linear infinite;
+        }
+        @keyframes shine {
+            to {
+                background-position: 200% center;
+            }
+        }
+        .plate-bg {
+            background: linear-gradient(to bottom, #ffffff, #f1f5f9);
+            border: 2px solid #334155;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.1), 0 4px 6px rgba(0,0,0,0.3);
+            color: #0f172a;
+        }
+        /* Custom Input Styles to look like a license plate */
+        .plate-input {
+            background: transparent;
+            border: none;
+            text-align: center;
+            font-weight: bold;
+            color: #0f172a;
+            outline: none;
+        }
+        .plate-input::placeholder {
+            color: #94a3b8;
+            font-weight: normal;
+        }
+        .plate-divider {
+            width: 2px;
+            background-color: #cbd5e1;
+            margin: 0 4px;
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center p-4">
+
+    <div class="w-full max-w-2xl">
+        <div class="text-center mb-8">
+            <h1 class="text-4xl md:text-5xl font-bold mb-3 gold-gradient">วิเคราะห์ทะเบียนรถมงคล</h1>
+            <p class="text-slate-300 text-sm md:text-base">ทำนายความหมายจากตัวเลข ตัวอักษร และวันเกิดของคุณ</p>
+        </div>
+
+        <div class="glass-card rounded-2xl p-6 md:p-8 mb-8">
+            <div class="space-y-6">
+                
+                <div>
+                    <label class="block text-slate-300 mb-2 font-medium">1. เลือกวันเกิดของคุณ</label>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                        <label class="cursor-pointer">
+                            <input type="radio" name="birthDay" value="sunday" class="peer sr-only" checked>
+                            <div class="text-center p-3 rounded-lg border border-slate-600 peer-checked:bg-red-500/20 peer-checked:border-red-500 hover:bg-slate-800 transition-all">
+                                <div class="text-red-400 font-medium">วันอาทิตย์</div>
+                            </div>
+                        </label>
+                        <label class="cursor-pointer">
+                            <input type="radio" name="birthDay" value="monday" class="peer sr-only">
+                            <div class="text-center p-3 rounded-lg border border-slate-600 peer-checked:bg-yellow-500/20 peer-checked:border-yellow-500 hover:bg-slate-800 transition-all">
+                                <div class="text-yellow-400 font-medium">วันจันทร์</div>
+                            </div>
+                        </label>
+                        <label class="cursor-pointer">
+                            <input type="radio" name="birthDay" value="tuesday" class="peer sr-only">
+                            <div class="text-center p-3 rounded-lg border border-slate-600 peer-checked:bg-pink-500/20 peer-checked:border-pink-500 hover:bg-slate-800 transition-all">
+                                <div class="text-pink-400 font-medium">วันอังคาร</div>
+                            </div>
+                        </label>
+                        <label class="cursor-pointer">
+                            <input type="radio" name="birthDay" value="wednesday_day" class="peer sr-only">
+                            <div class="text-center p-3 rounded-lg border border-slate-600 peer-checked:bg-green-500/20 peer-checked:border-green-500 hover:bg-slate-800 transition-all">
+                                <div class="text-green-400 font-medium text-sm">พุธ (กลางวัน)</div>
+                            </div>
+                        </label>
+                        <label class="cursor-pointer">
+                            <input type="radio" name="birthDay" value="wednesday_night" class="peer sr-only">
+                            <div class="text-center p-3 rounded-lg border border-slate-600 peer-checked:bg-emerald-700/30 peer-checked:border-emerald-500 hover:bg-slate-800 transition-all">
+                                <div class="text-emerald-300 font-medium text-sm">พุธ (กลางคืน)</div>
+                            </div>
+                        </label>
+                        <label class="cursor-pointer">
+                            <input type="radio" name="birthDay" value="thursday" class="peer sr-only">
+                            <div class="text-center p-3 rounded-lg border border-slate-600 peer-checked:bg-orange-500/20 peer-checked:border-orange-500 hover:bg-slate-800 transition-all">
+                                <div class="text-orange-400 font-medium">วันพฤหัสบดี</div>
+                            </div>
+                        </label>
+                        <label class="cursor-pointer">
+                            <input type="radio" name="birthDay" value="friday" class="peer sr-only">
+                            <div class="text-center p-3 rounded-lg border border-slate-600 peer-checked:bg-blue-500/20 peer-checked:border-blue-500 hover:bg-slate-800 transition-all">
+                                <div class="text-blue-400 font-medium">วันศุกร์</div>
+                            </div>
+                        </label>
+                        <label class="cursor-pointer">
+                            <input type="radio" name="birthDay" value="saturday" class="peer sr-only">
+                            <div class="text-center p-3 rounded-lg border border-slate-600 peer-checked:bg-purple-500/20 peer-checked:border-purple-500 hover:bg-slate-800 transition-all">
+                                <div class="text-purple-400 font-medium">วันเสาร์</div>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-slate-300 mb-2 font-medium">2. กรอกเลขทะเบียนรถ</label>
+                    <div class="plate-bg rounded-xl p-3 flex items-center justify-center gap-1 md:gap-3 mx-auto max-w-md h-24 relative overflow-hidden">
+                        
+                        <div class="flex flex-col items-center">
+                            <span class="text-[10px] text-slate-500 absolute top-1">ตัวเลข (มี/ไม่มีก็ได้)</span>
+                            <input type="text" id="prefix" maxlength="1" class="plate-input text-3xl md:text-4xl w-10 md:w-12 mt-3" placeholder="1" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                        </div>
+                        
+                        <div class="flex flex-col items-center">
+                            <span class="text-[10px] text-slate-500 absolute top-1">หมวดอักษร</span>
+                            <input type="text" id="letters" maxlength="2" class="plate-input text-3xl md:text-4xl w-20 md:w-24 mt-3" placeholder="กข" oninput="this.value = this.value.replace(/[^ก-ฮ]/g, '')">
+                        </div>
+                        
+                        <div class="plate-divider h-10"></div>
+                        
+                        <div class="flex flex-col items-center">
+                            <span class="text-[10px] text-slate-500 absolute top-1">เลขทะเบียน</span>
+                            <input type="text" id="numbers" maxlength="4" class="plate-input text-3xl md:text-4xl w-28 md:w-36 mt-3 tracking-widest" placeholder="9999" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                        </div>
+                    </div>
+                    <div id="error-message" class="text-red-400 text-sm text-center mt-2 hidden">กรุณากรอกหมวดอักษร 2 ตัว และเลขทะเบียนอย่างน้อย 1 ตัว</div>
+                </div>
+
+                <button onclick="analyzePlate()" class="w-full bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-400 hover:to-orange-500 text-white font-bold py-4 px-6 rounded-xl shadow-lg transform transition hover:-translate-y-1 hover:shadow-xl focus:outline-none">
+                    วิเคราะห์ความมงคล
+                </button>
+            </div>
+        </div>
+
+        <div id="result-section" class="glass-card rounded-2xl p-6 md:p-8 hidden opacity-0 transition-opacity duration-500">
+            <h2 class="text-2xl font-bold mb-6 text-center text-amber-400 border-b border-slate-700 pb-4">ผลการวิเคราะห์</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                
+                <div class="bg-slate-800/50 rounded-xl p-5 border border-slate-700">
+                    <h3 class="text-lg font-semibold text-slate-300 mb-2">ผลรวมเลขศาสตร์</h3>
+                    <div class="flex items-end gap-3 mb-3">
+                        <span id="res-sum" class="text-5xl font-bold text-white">0</span>
+                        <span id="res-grade" class="text-xl font-bold mb-1 px-3 py-1 rounded-full bg-green-500/20 text-green-400"></span>
+                    </div>
+                    <p id="res-calculation" class="text-sm text-slate-400 mb-4"></p>
+                    <p id="res-meaning" class="text-slate-200 text-sm leading-relaxed"></p>
+                </div>
+
+                <div class="bg-slate-800/50 rounded-xl p-5 border border-slate-700">
+                    <h3 class="text-lg font-semibold text-slate-300 mb-2">วิเคราะห์ตามวันเกิด</h3>
+                    <div id="res-day-name" class="inline-block px-3 py-1 rounded-md bg-slate-700 text-sm font-medium mb-4"></div>
+                    
+                    <div id="kalakini-check" class="space-y-3">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const letterValues = {
+            'ก': 1, 'ด': 1, 'ถ': 1, 'ท': 1, 'ภ': 1, 'ฤ': 1,
+            'ข': 2, 'บ': 2, 'ป': 2, 'ง': 2, 'ช': 2,
+            'ต': 3, 'ฒ': 3, 'ฆ': 3,
+            'ค': 4, 'ธ': 4, 'ร': 4, 'ญ': 4, 'ษ': 4,
+            'ฉ': 5, 'ณ': 5, 'ฌ': 5, 'น': 5, 'ม': 5, 'ห': 5, 'ฮ': 5, 'ฎ': 5, 'ฬ': 5,
+            'จ': 6, 'ล': 6, 'ว': 6, 'อ': 6,
+            'ศ': 7, 'ส': 7,
+            'ย': 8, 'ผ': 8, 'ฝ': 8, 'พ': 8, 'ฟ': 8,
+            'ฏ': 9, 'ฐ': 9
+        };
+
+        const dayRules = {
+            'sunday': { name: 'วันอาทิตย์', badNumbers: ['6'], badLetters: ['ศ', 'ษ', 'ส', 'ห', 'ฬ', 'ฮ'] },
+            'monday': { name: 'วันจันทร์', badNumbers: ['1'], badLetters: ['อ'] }, 
+            'tuesday': { name: 'วันอังคาร', badNumbers: ['2'], badLetters: ['ก', 'ข', 'ค', 'ฆ', 'ง'] },
+            'wednesday_day': { name: 'วันพุธ (กลางวัน)', badNumbers: ['3'], badLetters: ['จ', 'ฉ', 'ช', 'ซ', 'ฌ', 'ญ'] },
+            'wednesday_night': { name: 'วันพุธ (กลางคืน)', badNumbers: ['5'], badLetters: ['บ', 'ป', 'ผ', 'ฝ', 'พ', 'ฟ', 'ภ', 'ม'] },
+            'thursday': { name: 'วันพฤหัสบดี', badNumbers: ['7'], badLetters: ['ด', 'ต', 'ถ', 'ท', 'ธ', 'น'] },
+            'friday': { name: 'วันศุกร์', badNumbers: ['8'], badLetters: ['ย', 'ร', 'ล', 'ว'] },
+            'saturday': { name: 'วันเสาร์', badNumbers: ['4'], badLetters: ['ฎ', 'ฏ', 'ฐ', 'ฑ', 'ฒ', 'ณ'] }
+        };
+
+        function getSumMeaning(sum) {
+            const excellent = [14, 15, 19, 24, 36, 41, 42, 45, 50, 51, 54, 55, 56, 59, 63, 65, 99];
+            const good = [20, 23, 32, 40, 44, 46, 52, 60, 62, 64, 69, 79];
+            const moderate = [13, 16, 21, 22, 25, 26, 28, 29, 31, 35, 38, 39, 47, 49, 53, 58, 61, 68, 74];
+            
+            if (excellent.includes(sum)) {
+                return { grade: 'ดีมาก', color: 'text-green-400', bg: 'bg-green-500/20', text: 'เป็นเลขที่ให้คุณระดับดีเยี่ยม ส่งเสริมให้ชีวิตประสบความสำเร็จ เจริญรุ่งเรือง แคล้วคลาดปลอดภัย มีโชคลาภและคนคอยช่วยเหลือเกื้อกูล' };
+            } else if (good.includes(sum)) {
+                return { grade: 'ดี', color: 'text-blue-400', bg: 'bg-blue-500/20', text: 'เป็นเลขที่ให้คุณระดับดี ส่งเสริมความมั่นคงในชีวิต การงานก้าวหน้า การเงินคล่องตัว ขับขี่ปลอดภัยไร้อุปสรรค' };
+            } else if (moderate.includes(sum)) {
+                return { grade: 'ปานกลาง', color: 'text-yellow-400', bg: 'bg-yellow-500/20', text: 'เป็นเลขระดับปานกลาง ชีวิตอาจต้องเหน็ดเหนื่อยบ้าง แต่ก็สามารถผ่านพ้นอุปสรรคไปได้ด้วยความพยายาม ควรขับรถด้วยความไม่ประมาท' };
+            } else {
+                return { grade: 'ต้องระวัง', color: 'text-red-400', bg: 'bg-red-500/20', text: 'เป็นเลขที่ค่อนข้างเหนื่อย อาจมีอุปสรรคหรืออุบัติเหตุได้ง่าย ควรหมั่นทำบุญ เสริมดวง และขับรถด้วยความระมัดระวังเป็นพิเศษ หรือแก้ไขด้วยการติดทองที่ป้าย' };
+            }
+        }
+
+        function analyzePlate() {
+            const prefix = document.getElementById('prefix').value;
+            const letters = document.getElementById('letters').value;
+            const numbers = document.getElementById('numbers').value;
+            const errorMsg = document.getElementById('error-message');
+            const resultSection = document.getElementById('result-section');
+            const birthDay = document.querySelector('input[name="birthDay"]:checked').value;
+
+            if (letters.length !== 2 || numbers.length === 0) {
+                errorMsg.classList.remove('hidden');
+                resultSection.classList.add('hidden');
+                resultSection.classList.remove('opacity-100');
+                return;
+            }
+            errorMsg.classList.add('hidden');
+
+            let totalSum = 0;
+            let calculationTextParts = [];
+
+            if (prefix) {
+                totalSum += parseInt(prefix);
+                calculationTextParts.push(`${prefix} (หน้า)`);
+            }
+
+            let letter1Value = letterValues[letters[0]] || 0;
+            let letter2Value = letterValues[letters[1]] || 0;
+            totalSum += letter1Value + letter2Value;
+            calculationTextParts.push(`${letter1Value} (${letters[0]})`);
+            calculationTextParts.push(`${letter2Value} (${letters[1]})`);
+
+            let numSumText = [];
+            for (let char of numbers) {
+                totalSum += parseInt(char);
+                numSumText.push(char);
+            }
+            calculationTextParts.push(`${numSumText.join('+')} (หลัง)`);
+
+            document.getElementById('res-sum').textContent = totalSum;
+            document.getElementById('res-calculation').textContent = `วิธีคำนวณ: ${calculationTextParts.join(' + ')} = ${totalSum}`;
+            
+            const meaning = getSumMeaning(totalSum);
+            const gradeEl = document.getElementById('res-grade');
+            gradeEl.textContent = meaning.grade;
+            gradeEl.className = `text-xl font-bold mb-1 px-3 py-1 rounded-full ${meaning.bg} ${meaning.color}`;
+            document.getElementById('res-meaning').textContent = meaning.text;
+
+            const rules = dayRules[birthDay];
+            document.getElementById('res-day-name').textContent = `ดวงคนเกิด${rules.name}`;
+            
+            let kalakiniHtml = '';
+            let hasIssue = false;
+
+            const allNumbers = prefix + numbers;
+            let foundBadNumbers = [];
+            for (let num of rules.badNumbers) {
+                if (allNumbers.includes(num)) {
+                    foundBadNumbers.push(num);
+                }
+            }
+
+            let foundBadLetters = [];
+            for (let char of letters) {
+                if (rules.badLetters.includes(char)) {
+                    foundBadLetters.push(char);
+                }
+            }
+
+            if (foundBadNumbers.length > 0) {
+                hasIssue = true;
+                kalakiniHtml += `
+                    <div class="flex items-start gap-3 p-3 bg-red-500/10 border border-red-500/30 rounded-lg">
+                        <div class="text-red-400 mt-0.5">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                        <div>
+                            <div class="font-semibold text-red-300 text-sm">ตัวเลขกาลกิณี (${foundBadNumbers.join(', ')})</div>
+                            <div class="text-xs text-slate-400 mt-1">คนเกิด${rules.name} ไม่ควรมีเลข ${rules.badNumbers.join(', ')} ในทะเบียน</div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            if (foundBadLetters.length > 0) {
+                hasIssue = true;
+                kalakiniHtml += `
+                    <div class="flex items-start gap-3 p-3 bg-red-500/10 border border-red-500/30 rounded-lg">
+                        <div class="text-red-400 mt-0.5">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                        <div>
+                            <div class="font-semibold text-red-300 text-sm">อักษรกาลกิณี (${foundBadLetters.join(', ')})</div>
+                            <div class="text-xs text-slate-400 mt-1">อักษรกลุ่มนี้เป็นกาลกิณีสำหรับคนเกิด${rules.name} ทำให้มักมีเรื่องจุกจิก</div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            if (!hasIssue) {
+                kalakiniHtml = `
+                    <div class="flex items-start gap-3 p-3 bg-green-500/10 border border-green-500/30 rounded-lg">
+                        <div class="text-green-400 mt-0.5">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                        <div>
+                            <div class="font-semibold text-green-300 text-sm">ปลอดภัย ไม่มีกาลกิณี</div>
+                            <div class="text-xs text-slate-400 mt-1">ทะเบียนนี้ไม่มีทั้งตัวเลขและตัวอักษรที่เป็นข้อห้ามสำหรับคนเกิด${rules.name}</div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            document.getElementById('kalakini-check').innerHTML = kalakiniHtml;
+
+            resultSection.classList.remove('hidden');
+            setTimeout(() => {
+                resultSection.classList.add('opacity-100');
+            }, 50);
+        }
+    </script>
+</body>
+</html>
