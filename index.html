@@ -192,14 +192,14 @@
         };
 
         const dayRules = {
-            'sunday': { name: 'วันอาทิตย์', badNumbers: ['6'], badLetters: ['ศ', 'ษ', 'ส', 'ห', 'ฬ', 'ฮ'] },
-            'monday': { name: 'วันจันทร์', badNumbers: ['1'], badLetters: ['อ'] }, 
-            'tuesday': { name: 'วันอังคาร', badNumbers: ['2'], badLetters: ['ก', 'ข', 'ค', 'ฆ', 'ง'] },
-            'wednesday_day': { name: 'วันพุธ (กลางวัน)', badNumbers: ['3'], badLetters: ['จ', 'ฉ', 'ช', 'ซ', 'ฌ', 'ญ'] },
-            'wednesday_night': { name: 'วันพุธ (กลางคืน)', badNumbers: ['5'], badLetters: ['บ', 'ป', 'ผ', 'ฝ', 'พ', 'ฟ', 'ภ', 'ม'] },
-            'thursday': { name: 'วันพฤหัสบดี', badNumbers: ['7'], badLetters: ['ด', 'ต', 'ถ', 'ท', 'ธ', 'น'] },
-            'friday': { name: 'วันศุกร์', badNumbers: ['8'], badLetters: ['ย', 'ร', 'ล', 'ว'] },
-            'saturday': { name: 'วันเสาร์', badNumbers: ['4'], badLetters: ['ฎ', 'ฏ', 'ฐ', 'ฑ', 'ฒ', 'ณ'] }
+            'sunday': { name: 'วันอาทิตย์', badNumbers: ['6'], badLetters: ['ศ', 'ษ', 'ส', 'ห', 'ฬ', 'ฮ'], luckyNumbers: '1, 4, 5, 9', luckyPairs: '15, 45, 59, 95' },
+            'monday': { name: 'วันจันทร์', badNumbers: ['1'], badLetters: ['อ'], luckyNumbers: '2, 4, 5, 6', luckyPairs: '24, 42, 45, 56' }, 
+            'tuesday': { name: 'วันอังคาร', badNumbers: ['2'], badLetters: ['ก', 'ข', 'ค', 'ฆ', 'ง'], luckyNumbers: '3, 5, 7, 9', luckyPairs: '35, 53, 39, 93' },
+            'wednesday_day': { name: 'วันพุธ (กลางวัน)', badNumbers: ['3'], badLetters: ['จ', 'ฉ', 'ช', 'ซ', 'ฌ', 'ญ'], luckyNumbers: '2, 4, 5, 6', luckyPairs: '24, 42, 45, 54' },
+            'wednesday_night': { name: 'วันพุธ (กลางคืน)', badNumbers: ['5'], badLetters: ['บ', 'ป', 'ผ', 'ฝ', 'พ', 'ฟ', 'ภ', 'ม'], luckyNumbers: '1, 2, 7, 8', luckyPairs: '12, 21, 78, 89' },
+            'thursday': { name: 'วันพฤหัสบดี', badNumbers: ['7'], badLetters: ['ด', 'ต', 'ถ', 'ท', 'ธ', 'น'], luckyNumbers: '1, 4, 5, 9', luckyPairs: '15, 45, 59, 95' },
+            'friday': { name: 'วันศุกร์', badNumbers: ['8'], badLetters: ['ย', 'ร', 'ล', 'ว'], luckyNumbers: '2, 3, 4, 5, 6', luckyPairs: '24, 36, 45, 56' },
+            'saturday': { name: 'วันเสาร์', badNumbers: ['4'], badLetters: ['ฎ', 'ฏ', 'ฐ', 'ฑ', 'ฒ', 'ณ'], luckyNumbers: '3, 8, 9', luckyPairs: '39, 89, 98, 99' }
         };
 
         function getSumMeaning(sum) {
@@ -335,7 +335,43 @@
                 `;
             }
 
-            document.getElementById('kalakini-check').innerHTML = kalakiniHtml;
+            let recommendationHtml = `
+                <div class="mt-5 pt-4 border-t border-slate-700/50">
+                    <h4 class="text-sm font-semibold text-amber-400 mb-3">คำแนะนำเพิ่มเติมสำหรับคนเกิด${rules.name}</h4>
+                    <div class="space-y-2 text-sm bg-slate-800/80 p-4 rounded-xl border border-slate-700/50">
+                        <div class="flex items-start gap-2">
+                            <span class="text-green-400 mt-0.5">✓</span>
+                            <div>
+                                <span class="text-slate-300 font-medium">เลขเด่นมงคล:</span>
+                                <span class="text-green-300 ml-1 font-semibold">${rules.luckyNumbers}</span>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-2">
+                            <span class="text-green-400 mt-0.5">✓</span>
+                            <div>
+                                <span class="text-slate-300 font-medium">กลุ่มเลขคู่มงคล:</span>
+                                <span class="text-green-300 ml-1 font-semibold">${rules.luckyPairs}</span>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-2 mt-3 pt-3 border-t border-slate-700/50">
+                            <span class="text-red-400 mt-0.5">✗</span>
+                            <div>
+                                <span class="text-slate-300 font-medium">เลขกาลกิณี (ควรเลี่ยง):</span>
+                                <span class="text-red-300 ml-1">${rules.badNumbers.join(', ')}</span>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-2">
+                            <span class="text-red-400 mt-0.5">✗</span>
+                            <div>
+                                <span class="text-slate-300 font-medium">อักษรกาลกิณี (ควรเลี่ยง):</span>
+                                <span class="text-red-300 ml-1">${rules.badLetters.join(', ')}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('kalakini-check').innerHTML = kalakiniHtml + recommendationHtml;
 
             resultSection.classList.remove('hidden');
             setTimeout(() => {
